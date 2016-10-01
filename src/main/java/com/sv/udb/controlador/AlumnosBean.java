@@ -72,7 +72,8 @@ public class AlumnosBean implements Serializable{
         {
             FCDEAlum.create(this.objeAlum);
             this.listAlum.add(this.objeAlum);
-            this.limpForm();
+            this.guardar = false;
+            //this.limpForm(); //Omito para mantener los datos en la modal
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
