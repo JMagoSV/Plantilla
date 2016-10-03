@@ -28,7 +28,6 @@ $(document).ready(function() {
     $('#ModaFormAlum').on('hide.bs.modal', function() {
         $("#TablAlum").bootstrapTable('uncheckAll');
     });
-
     
     INIT_OBJE_ALUM();
 });
