@@ -7,6 +7,8 @@ package com.sv.udb.controlador;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
