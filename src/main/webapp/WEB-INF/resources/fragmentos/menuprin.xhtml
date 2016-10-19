@@ -26,24 +26,64 @@ and open the template in the editor.
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="treeview #{actiIndex}">
-                        <h:link outcome="index">
+                        <h:link outcome="/index">
                             <i class="fa fa-home"></i> <span>Principal</span>
                         </h:link>
                     </li>
-                    <li class="treeview #{actiMenu1}">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Menú 1</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="#{actiAlumnos}"><h:link outcome="alumnos"><i class="fa fa-user"></i> Alumnos</h:link></li>
-                            <li class="#{actiConfig}"><h:link outcome="config"><i class="fa fa-cogs"></i> Configuración</h:link></li>
-                            <li class="#{actiUpload}"><h:link outcome="files"><i class="fa fa-cloud-upload"></i> Uploads</h:link></li>
-                            <li class="#{actiReport}"><h:link outcome="reportes"><i class="fa fa-file-text-o"></i> Reportes</h:link></li>
-                        </ul>
-                    </li>
+                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo1')}">
+                        <li class="treeview #{actiMenu1}">
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>Módulo 1</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="#{actiAlumnos}">
+                                    <h:link outcome="/modulo1/alumnos" rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo1/alumnos.xhtml')}">
+                                        <i class="fa fa-user"></i> Alumnos
+                                    </h:link>
+                                </li>
+                                <li class="#{actiConfig}">
+                                    <h:link outcome="/modulo1/config">
+                                        <i class="fa fa-cogs"></i> Configuración
+                                    </h:link>
+                                </li>
+                                <li class="#{actiUpload}">
+                                    <h:link outcome="/modulo1/files">
+                                        <i class="fa fa-cloud-upload"></i> Uploads
+                                    </h:link>
+                                </li>
+                                <li class="#{actiReport}">
+                                    <h:link outcome="/modulo1/reportes">
+                                        <i class="fa fa-file-text-o"></i> Reportes
+                                    </h:link>
+                                </li>
+                                <li class="#{actiWebServ}">
+                                    <h:link outcome="/modulo1/webservices">
+                                        <i class="fa fa-cloud"></i> WebServices Client
+                                    </h:link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo2')}">
+                        <li class="treeview #{actiModulo2}">
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>Módulo 2</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="#{actiDemo}">
+                                    <h:link  outcome="/modulo2/demo.xhtml" rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo2/demo.xhtml')}">
+                                        <i class="fa fa-archive"></i> Demo
+                                    </h:link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ui:fragment>
                 </ul>
             </section>
             <!-- /.sidebar -->

@@ -26,6 +26,8 @@ public interface UsuariosFacadeLocal {
 
     Usuarios findByAcceAndCont(Object acce, Object cont);
 
+    boolean findPermByAcceAndRole(Object acce, Object role);
+
     List<Usuarios> findAll();
 
     List<Usuarios> findRange(int[] range);

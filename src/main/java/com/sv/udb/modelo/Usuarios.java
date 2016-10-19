@@ -6,6 +6,7 @@
 package com.sv.udb.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuarios.findByContUsua", query = "SELECT u FROM Usuarios u WHERE u.contUsua = :contUsua"),
     @NamedQuery(name = "Usuarios.findByEstaUsua", query = "SELECT u FROM Usuarios u WHERE u.estaUsua = :estaUsua")})
 public class Usuarios implements Serializable {
+
+    @OneToMany(mappedBy = "codiUsua", fetch = FetchType.EAGER)
+    private List<UsuariosRoles> usuariosRolesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -135,6 +141,15 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return "com.sv.udb.modelo.Usuarios[ codiUsua=" + codiUsua + " ]";
+    }
+
+    @XmlTransient
+    public List<UsuariosRoles> getUsuariosRolesList() {
+        return usuariosRolesList;
+    }
+
+    public void setUsuariosRolesList(List<UsuariosRoles> usuariosRolesList) {
+        this.usuariosRolesList = usuariosRolesList;
     }
     
 }
