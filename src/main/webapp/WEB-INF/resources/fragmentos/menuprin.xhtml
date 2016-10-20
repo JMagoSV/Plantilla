@@ -30,7 +30,7 @@ and open the template in the editor.
                             <i class="fa fa-home"></i> <span>Principal</span>
                         </h:link>
                     </li>
-                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo1')}">
+                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole('/modulo1')}">
                         <li class="treeview #{actiMenu1}">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Módulo 1</span>
@@ -40,7 +40,7 @@ and open the template in the editor.
                             </a>
                             <ul class="treeview-menu">
                                 <li class="#{actiAlumnos}">
-                                    <h:link outcome="/modulo1/alumnos" rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo1/alumnos.xhtml')}">
+                                    <h:link outcome="/modulo1/alumnos" rendered="#{globalAppBean.getEstaPermByRole('/modulo1/alumnos.xhtml')}">
                                         <i class="fa fa-user"></i> Alumnos
                                     </h:link>
                                 </li>
@@ -67,7 +67,7 @@ and open the template in the editor.
                             </ul>
                         </li>
                     </ui:fragment>
-                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo2')}">
+                    <ui:fragment rendered="#{globalAppBean.getEstaPermByRole('/modulo2')}">
                         <li class="treeview #{actiModulo2}">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Módulo 2</span>
@@ -77,7 +77,7 @@ and open the template in the editor.
                             </a>
                             <ul class="treeview-menu">
                                 <li class="#{actiDemo}">
-                                    <h:link  outcome="/modulo2/demo.xhtml" rendered="#{globalAppBean.getEstaPermByRole(loginBean.objeUsua.acceUsua, '/modulo2/demo.xhtml')}">
+                                    <h:link  outcome="/modulo2/demo.xhtml" rendered="#{globalAppBean.getEstaPermByRole('/modulo2/demo.xhtml')}">
                                         <i class="fa fa-archive"></i> Demo
                                     </h:link>
                                 </li>

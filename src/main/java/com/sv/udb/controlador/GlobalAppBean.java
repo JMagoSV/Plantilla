@@ -15,6 +15,7 @@ import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -28,6 +29,8 @@ import org.primefaces.model.StreamedContent;
 public class GlobalAppBean {
     @EJB
     private UsuariosFacadeLocal FCDEUsua;   
+    @Inject
+    private LoginBean logiBean; //Bean de session
 
     /**
      * Creates a new instance of GlobalAppBean
@@ -75,6 +78,19 @@ public class GlobalAppBean {
             return FCDEUsua.findPermByAcceAndRole(usua, page);
         }
         catch(Exception ex)
+        {
+            return false;
+        }
+    }
+    
+    public boolean getEstaPermByRole(String role)
+    {
+        this.logiBean = this.logiBean != null ? this.logiBean : new LoginBean();
+        if(logiBean.isLoge())
+        {
+            return getEstaPermByRole(logiBean.getObjeUsua().getAcceUsua(), role);
+        }
+        else
         {
             return false;
         }
