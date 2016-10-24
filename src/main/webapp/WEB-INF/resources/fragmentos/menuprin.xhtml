@@ -60,7 +60,7 @@ and open the template in the editor.
                                     </h:link>
                                 </li>
                                 <li class="#{actiWebServ}">
-                                    <h:link outcome="/modulo1/webservices">
+                                    <h:link outcome="/modulo1/webservices" rendered="#{globalAppBean.getEstaPermByRole('/modulo1/webservices.xhtml')}">
                                         <i class="fa fa-cloud"></i> WebServices Client
                                     </h:link>
                                 </li>
