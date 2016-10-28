@@ -81,6 +81,11 @@ and open the template in the editor.
                                         <i class="fa fa-archive"></i> Demo
                                     </h:link>
                                 </li>
+                                <li class="#{actiCale}">
+                                    <h:link  outcome="/modulo2/cale.xhtml" rendered="#{globalAppBean.getEstaPermByRole('/modulo2/cale.xhtml')}">
+                                        <i class="fa fa-calendar"></i> Calendario
+                                    </h:link>
+                                </li>
                             </ul>
                         </li>
                     </ui:fragment>
