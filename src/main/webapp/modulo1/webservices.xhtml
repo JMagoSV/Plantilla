@@ -76,10 +76,12 @@ and open the template in the editor.
                                             </span>
                                         </div>
                                         <br/>
-                                        <div class="input-group input-group-sm">
-                                            <h:outputLabel  for="nombUsua" value="El valor devuelto es: "/>
-                                            <h:inputText id="nombUsua" value="#{webServicesBean.nombUsua}" class="form-control"/>
-                                        </div>
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-success">Respuesta: #{webServicesBean.objeWebServ.resp}</li>
+                                            <ui:repeat var="temp" value="#{webServicesBean.objeWebServ.resu}">
+                                                <li class="list-group-item">#{temp.carn} - #{temp.nomb} - #{temp.espe}</li>
+                                            </ui:repeat>
+                                        </ul>
                                     </fieldset>
                                 </div>
                                 <div class="modal-footer" style="padding-top: 0; padding-bottom: 5px;">
