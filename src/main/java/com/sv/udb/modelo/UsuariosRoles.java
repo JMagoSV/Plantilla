@@ -73,12 +73,12 @@ public class UsuariosRoles implements Serializable {
         this.codiUsuaRole = codiUsuaRole;
     }
 
-    public Integer getEstaUsuaRole() {
-        return estaUsuaRole;
+    public boolean getEstaUsuaRole() {
+        return estaUsuaRole == 1;
     }
 
-    public void setEstaUsuaRole(Integer estaUsuaRole) {
-        this.estaUsuaRole = estaUsuaRole;
+    public void setEstaUsuaRole(boolean estaUsuaRole) {
+        this.estaUsuaRole = estaUsuaRole ? 1 : 0;
     }
 
     public Date getFechAltaRole() {

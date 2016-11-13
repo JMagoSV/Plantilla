@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/WEB-INF/resources/fragmentos/comun.xhtml">
+        <!-- Título de la página -->
+        <ui:param name="pageTitl" value="Bienvenido ::: Página Roles"/>
+        <ui:param name="pageNomb" value="Página Roles"/>
+        <ui:param name="pageDesc" value="Esta es la página Roles"/>
+        <!-- Activar el link del menú -->
+        <ui:param name="actiModulo2" value="active"/>
+        <ui:param name="actiRole" value="active"/>
+        <!-- Scripts personalizados -->
+        <ui:define name="CustomScripts">
+            <!-- Scripts checkbox toogle -->
+            <h:outputStylesheet library="css" name="bootstrap-toggle.css"/>
+            <h:outputScript library="js" name="bootstrap-toggle.js"/>
+            <h:outputScript library="js" name="custom/usua.js"/>
+        </ui:define>
+        <!-- Elementos propios del boby -->
+        <ui:define name="body">
+            <style>
+                .field-error
+                {
+                    color: #a94442; 
+                    display: inline;
+                    font-size: 10px;
+                }
+                .field-error:first-letter
+                {
+                    text-transform: capitalize;
+                    color: #003399;
+                }
+                .form-group
+                {
+                    margin-bottom: 5px !important;
+                }
+                .bootstrap-select > .btn {
+                    padding-top: 2px;
+                    padding-bottom: 2px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Tabla de Datos</div>
+                        <div class="panel-body">
+                            <h:panelGroup id="ContRole"  rendered="#{true}">
+                                <div id="toolTablRole">
+                                    <h:form>
+                                        <!--Form exclusivo para los remotos-->
+                                        <p:remoteCommand name="consRole" actionListener="#{rolesBean.cons()}" update=":FormRole" 
+                                                         oncomplete="$('#ModaRole').modal('show');" global="true"/>
+                                        <p:remoteCommand name="elimRole" actionListener="#{rolesBean.elim()}" update=":FormRole :ContRole" 
+                                                         oncomplete="INIT_OBJE_ROLE();" global="true"/>
+                                        <h:commandLink id="btonNuev" class="btn btn-success" rendered="#{true}">
+                                            <p:ajax listener="#{rolesBean.limpForm()}" update=":FormRole" global="true" 
+                                                    oncomplete="$('#ModaRole').modal('show');"/>
+                                            <i class="fa fa-plus"/> Nuevo
+                                        </h:commandLink>
+                                    </h:form>
+                                </div>
+                                <h:dataTable pt:data-id="TablUsua" id="TablUsua" value="#{rolesBean.listUsua}"
+                                             var="fila" class="boottable" pt:data-toolbar="#toolTablRole"
+                                             styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                             pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                             pt:data-search="true" pt:data-pagination="true" pt:data-page-list="[5, 10, 20, 50]"
+                                             pt:data-click-to-select="true"  pt:data-select-item-name="radio"
+                                             pt:data-single-select="true">                                
+                                    <h:column pt:data-field="state" pt:data-checkbox="true">
+                                    </h:column>
+                                    <h:column pt:data-align="right" pt:data-sortable="true" pt:data-field="id">
+                                        <f:facet name="header">Código</f:facet>
+                                        <h:outputText value="#{fila.codiUsua}"/>
+                                    </h:column>
+                                    <h:column pt:data-sortable="true" pt:data-field="nomb">
+                                        <f:facet name="header">Nombre</f:facet>
+                                        <h:outputText value="#{fila.codiAlum.nombAlum.concat(' ').concat(fila.codiAlum.apelAlum)}"/>   
+                                    </h:column>
+                                    <h:column pt:data-sortable="true">
+                                        <f:facet name="header">Usuario</f:facet>
+                                        <h:outputText value="#{fila.acceUsua}"/>                          
+                                    </h:column>
+                                    <h:column pt:data-sortable="true">
+                                        <f:facet name="header">Email</f:facet>
+                                        <h:outputText value="#{fila.codiAlum.mailAlum}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Modal -->
+                <div id="ModaRole" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <h:form id="FormRole" class="form-horizontal">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"/></button>
+                                    <h4 class="modal-title">Gestión de Roles-Usuarios</h4>
+                                </div>
+                                <div class="modal-body" style="padding-top: 2px;">
+                                    <ui:fragment id="FragUsua" rendered="#{true}">
+                                        <fieldset>
+                                            <div class="bs-callout bs-callout-success" style="margin: 0px 0px; padding: 5px 5px 5px 5px;">
+                                                <h4>Datos de Usuario</h4>
+                                                <h:outputText value="#{rolesBean.objeUsua.acceUsua}"/>
+                                            </div>
+                                        </fieldset>
+                                    </ui:fragment>
+                                    <ui:fragment id="FragRole" rendered="#{!rolesBean.showBusc}">
+                                        <fieldset>
+                                            <div class="bs-callout bs-callout-warning" style="margin: 0px 0px; padding: 5px 5px 5px 5px;">
+                                                <div id="toolTablRole">
+                                                    <h:form>
+                                                        <h:commandLink id="btonNuev" class="btn btn-success" rendered="#{true}">
+                                                            <p:ajax listener="#{rolesBean.toogBusc()}" update="@form" process="@this" 
+                                                                    oncomplete="INIT_OBJE_MODA_ROLE();"/>
+                                                            <i class="fa fa-plus"/> Agregar nuevo
+                                                        </h:commandLink>
+                                                    </h:form>
+                                                </div>
+                                                <h:dataTable pt:data-id="TablUsuaRole" id="TablUsuaRole" value="#{rolesBean.listUsuaRole}"
+                                                             var="role" class="boottable" pt:data-toolbar="#toolTablRole"
+                                                             styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                                             pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                                             pt:data-search="true" pt:data-pagination="false" pt:data-page-list="[5, 10, 20, 50]"
+                                                             pt:data-click-to-select="false"  pt:data-select-item-name="radio"
+                                                             pt:data-single-select="false">
+                                                    <h:column pt:data-align="right" pt:data-sortable="false" pt:data-field="id">
+                                                        <f:facet name="header">Código</f:facet>
+                                                        <h:outputText value="#{role.codiUsuaRole}"/>
+                                                    </h:column>
+                                                    <h:column pt:data-sortable="false" pt:data-field="nomb">
+                                                        <f:facet name="header">Role</f:facet>
+                                                        <h:outputText value="#{role.codiRole.descRole}"/>   
+                                                    </h:column>
+                                                    <h:column pt:data-sortable="false">
+                                                        <f:facet name="header">Url</f:facet>
+                                                        <h:outputText value="#{role.codiRole.direRole}"/>                          
+                                                    </h:column>
+                                                    <h:column pt:data-sortable="false">
+                                                        <f:facet name="header">Estado</f:facet>
+                                                        <h:selectBooleanCheckbox value="#{role.estaUsuaRole}"
+                                                                                 pt:data-id="chck" pt:data-size="mini"
+                                                                                 pt:data-onstyle="success" pt:data-offstyle="danger"
+                                                                                 pt:data-on="Sí" pt:data-off="No">
+                                                            <p:ajax event="change" process="@this"/>
+                                                        </h:selectBooleanCheckbox>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </div>
+                                        </fieldset>
+                                    </ui:fragment>
+                                    <ui:fragment id="FragRoleBusc" rendered="#{rolesBean.showBusc}">
+                                        <fieldset>
+                                            <div class="bs-callout bs-callout-warning" style="margin: 0px 0px; padding: 5px 5px 5px 5px;">
+                                                <div id="toolTablRole">
+                                                    <h:form>
+                                                        <h:commandLink id="btonBack" class="btn btn-success" rendered="#{true}">
+                                                            <p:ajax listener="#{rolesBean.toogBusc()}" update="@form" process="@this" 
+                                                                    oncomplete="INIT_OBJE_MODA_ROLE();"/>
+                                                            <i class="fa fa-plus"/> Regresar
+                                                        </h:commandLink>
+                                                    </h:form>
+                                                </div>
+                                                <h:dataTable pt:data-id="TablRole" id="TablRole" value="#{rolesBean.listRole}"
+                                                             var="roleAdd" class="boottable" pt:data-toolbar="#toolTablRole"
+                                                             styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                                             pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                                             pt:data-search="true" pt:data-pagination="false" pt:data-page-list="[5, 10, 20, 50]"
+                                                             pt:data-click-to-select="false"  pt:data-select-item-name="radio"
+                                                             pt:data-single-select="false">
+                                                    <h:column pt:data-align="right" pt:data-sortable="false" pt:data-field="id">
+                                                        <f:facet name="header">Código</f:facet>
+                                                        <h:outputText value="#{roleAdd.codiRole}"/>
+                                                    </h:column>
+                                                    <h:column pt:data-sortable="false" pt:data-field="nomb">
+                                                        <f:facet name="header">Role</f:facet>
+                                                        <h:outputText value="#{roleAdd.descRole}"/>   
+                                                    </h:column>
+                                                    <h:column pt:data-sortable="false">
+                                                        <f:facet name="header">Url</f:facet>
+                                                        <h:outputText value="#{roleAdd.direRole}"/>                          
+                                                    </h:column>
+                                                    <!--h:column pt:data-sortable="false">
+                                                        <f:facet name="header">Estado</f:facet>
+                                                        <h:selectBooleanCheckbox value="# {role.estaUsuaRole}"
+                                                                                 pt:data-id="chck" pt:data-size="mini"
+                                                                                 pt:data-onstyle="success" pt:data-offstyle="danger"
+                                                                                 pt:data-on="Sí" pt:data-off="No">
+                                                            <p:ajax event="change" process="@this"/>
+                                                        </h:selectBooleanCheckbox>
+                                                    </h:column-->
+                                                </h:dataTable>
+                                            </div>
+                                        </fieldset>
+                                    </ui:fragment>
+                                </div>
+                                <div class="modal-footer" style="padding-bottom: 5px; padding-top: 5px;">
+                                    <div class="input-group-btn right" style="padding-top: 5px;">
+                                        <div class="btn-group">
+                                            <h:commandLink id="btonCanc" class="btn btn-default" pt:data-dismiss="modal">
+                                                <p:ajax listener="#{rolesBean.limpForm()}" process="@form" update="@form" global="true"/>
+                                                <i class="fa fa-mail-forward"/> Cerrar
+                                            </h:commandLink>
+                                            <h:commandLink id="btonGuar" class="btn btn-success" rendered="#{rolesBean.guardar}">
+                                                <p:ajax listener="#{rolesBean.guar()}" process="@form" update="@form :ContRole" oncomplete="INIT_OBJE_ROLE();" />
+                                                <i class="fa fa-plus"/> Guardar
+                                            </h:commandLink>
+                                            <h:commandLink id="btonNuev" class="btn btn-success" rendered="#{!rolesBean.guardar}">
+                                                <p:ajax listener="#{rolesBean.limpForm()}" process="@form" update="@form" oncomplete="INIT_OBJE_MODA_ROLE();" />
+                                                <i class="fa fa-plus"/> Nuevo
+                                            </h:commandLink>
+                                            <h:commandLink id="btonModi" class="btn btn-primary" rendered="#{!rolesBean.guardar}">
+                                                <p:ajax listener="#{rolesBean.modi()}" process="@form" update="@form :ContRole" oncomplete="INIT_OBJE_ROLE();" />
+                                                <i class="fa fa-edit"/> Modificar
+                                            </h:commandLink>
+                                            <!--
+                                                # Para corregir el error que redirecciona hice una serie de pasos
+                                                1. Actualizar el bootstrap-confirmation, yo usé este: http://bootstrap-confirmation.js.org/
+                                                2. Quitar la referencia: bootstrap-confirmation.min.js del fragmento head.xhtml
+                                                3. Modifiqué el custom alum.js(en este ejemplo) quitando la función y dejando todo en una sola línea
+                                                4. Y por último y lo mas importante que creo era lo único necesario al elemento h:outputLink le agregué el value="#"
+                                            -->
+                                            <h:outputLink id="btonElim" class="btn btn-danger" rendered="#{!rolesBean.guardar}" value="#" pt:data-placement="left"
+                                                          pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
+                                                          pt:data-btn-ok-class="btn-danger btn-xs" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
+                                                          pt:data-btn-cancel-class="btn-default btn-xs" pt:data-title="¿Esta seguro que desea eliminar?"
+                                                          pt:data-on-confirm="elimRole"><!--data-on-confirm = nombre del comando remoto de eliminar (sin paréntesis)-->
+                                                <i class="fa fa-times"/> Eliminar
+                                            </h:outputLink>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

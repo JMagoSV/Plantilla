@@ -91,6 +91,11 @@ and open the template in the editor.
                                         <i class="fa fa-calendar"></i> Calendario
                                     </h:link>
                                 </li>
+                                <li class="#{actiRole}">
+                                    <h:link  outcome="/modulo2/role.xhtml" rendered="#{globalAppBean.getEstaPermByRole('/modulo2/role.xhtml')}">
+                                        <i class="fa fa-shield"></i> Roles
+                                    </h:link>
+                                </li>
                             </ul>
                         </li>
                     </ui:fragment>
