@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!--Plugins Frameworks-->
+        <h:outputScript library="js" name="jquery-3.1.0.min.js" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+        <!--Elementos de Plantilla-->
+        <h:outputStylesheet library="plantilla" name="css/AdminLTE.min.css"/>
+        <h:outputStylesheet library="plantilla" name="css/skins/_all-skins.min.css"/>    
+        <!--Plugins Alerta-->
+        <h:outputStylesheet library="css" name="toastr.min.css"/>
+        <h:outputScript library="js" name="toastr.min.js"/>
+        <h:outputScript library="js" name="custom/mens.js"/>
+        <!--Plugins de Fechas-->
+        <h:outputStylesheet library="css" name="bootstrap-datetimepicker.css"/>
+        <h:outputScript library="js" name="bootstrap-datetimepicker.es.js"/>
+        <h:outputScript library="js" name="bootstrap-datetimepicker.js"/>
+    </h:head>
+    <h:body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <b>POO</b>RNPN
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Test de Fechas</p>
+                <h:form id="MiForm">
+                    <div class="input-group" style="margin-bottom: 5px;">
+                        <span class="input-group-addon">Fecha de Documento: </span>
+                        <h:inputText pt:data-id="fFDocum" id="fFDocum" value="#{cmSoft.ffechadocumento}" class="form-control" pt:placeholder="Fecha 1" />
+                        <span class="input-group-addon"><i class="fa fa-calendar"/></span>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 5px;">
+                        <span class="input-group-addon">Fecha de Recibido: </span>
+                        <h:inputText pt:data-id="fFDocRec" id="fFDocRec" value="#{cmSoft.ffecharecibido}" class="form-control" pt:placeholder="Fecha 2" />
+                        <span class="input-group-addon"><i class="fa fa-calendar"/></span>
+                    </div>
+                    <div class="row">
+                        <!-- /.col -->
+                        <div class="col-xs-offset-8 col-xs-4">
+                            <h:commandLink id="btonIngr" class="btn btn-github btn-group-justified">
+                                <p:ajax listener="#{cmSoft.guardar()}" process="@form" update="@form" global="true"/>
+                                <i class="fa fa-floppy-o"/> Probar
+                            </h:commandLink>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </h:form>
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("[data-id='fFDocum']").datetimepicker().on('dp.change', function(e) {
+                    $("[data-id='fFDocRec']").val($(this).val());
+                });
+                $("[data-id='fFDocRec']").datetimepicker();
+            });
+        </script>
+    </h:body>
+</html>

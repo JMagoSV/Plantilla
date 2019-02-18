@@ -40,7 +40,7 @@
         <param-value>/WEB-INF/resources</param-value>
     </context-param>
     <welcome-file-list>
-        <welcome-file>poo/login.xhtml</welcome-file>
+        <welcome-file>poo/fechas.xhtml</welcome-file>
     </welcome-file-list>
     <mime-mapping>
         <extension>woff</extension>
